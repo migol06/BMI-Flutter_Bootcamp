@@ -1,11 +1,8 @@
-import 'package:bmi_calc/color.dart';
-import 'package:bmi_calc/constant.dart';
-import 'package:bmi_calc/weightage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'container.dart';
-import 'gender.dart';
+import 'constants/constants.dart';
+import 'widgets/widgets.dart';
 
 enum Gender { male, female }
 Gender? selectGender;

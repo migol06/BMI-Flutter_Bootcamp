@@ -1,6 +1,7 @@
-import 'package:bmi_calc/color.dart';
 import 'package:bmi_calc/input_page.dart';
 import 'package:flutter/material.dart';
+
+import 'constants/constants.dart';
 
 void main() {
   runApp(const MyApp());

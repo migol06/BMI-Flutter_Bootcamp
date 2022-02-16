@@ -1,6 +1,5 @@
+import 'package:bmi_calc/constants/constants.dart';
 import 'package:flutter/material.dart';
-
-import 'constant.dart';
 
 class BMIGender extends StatelessWidget {
   const BMIGender({
