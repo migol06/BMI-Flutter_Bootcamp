@@ -7,4 +7,6 @@ class BMIColor {
   static const Color bottomContainerColor = Color(0xFFEB1555);
   static const Color gray = Color(0xFF8D8E98);
   static const Color green = Color(0xFF24D876);
+  static const Color grayButton = Color(0xFF4C4F5E);
+  static const Color lowPink = Color(0x29EB1555);
 }

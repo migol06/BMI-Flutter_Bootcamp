@@ -1,5 +1,6 @@
 import 'package:bmi_calc/color.dart';
 import 'package:bmi_calc/constant.dart';
+import 'package:bmi_calc/weightage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,8 +18,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  int weight = 0;
-  int age = 0;
+  int weight = 50;
+  int age = 20;
   int height = 180;
   Color maleColor = BMIColor.inaactiveColor;
   Color femaleColor = BMIColor.inaactiveColor;
@@ -30,7 +31,7 @@ class _InputPageState extends State<InputPage> {
           title: const Text('BMI CALCULATOR'),
           backgroundColor: BMIColor.black,
         ),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        body: Column(children: [
           Expanded(
             child: Row(
               children: [
@@ -66,15 +67,65 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           BMIContainer(
-            color: BMIColor.inaactiveColor,
-            child: Column(),
+            color: BMIColor.activeColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const Text(
+                  'HEIGHT',
+                  style: labelTextStyle,
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      height.toString(),
+                      style: numberTextStyle,
+                    ),
+                    const Text(
+                      'cm',
+                      style: numberTextStyle,
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                      inactiveTickMarkColor: BMIColor.gray,
+                      activeTrackColor: Colors.white,
+                      thumbColor: BMIColor.bottomContainerColor,
+                      overlayColor: BMIColor.lowPink,
+                      thumbShape:
+                          const RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      overlayShape:
+                          const RoundSliderOverlayShape(overlayRadius: 30.0)),
+                  child: Slider(
+                      min: 100,
+                      max: 220,
+                      value: height.toDouble(),
+                      onChanged: (double value) {
+                        setState(() {
+                          height = value.round();
+                        });
+                      }),
+                )
+              ],
+            ),
           ),
           Expanded(
             child: Row(
               children: [
                 Expanded(
                   child: BMIContainer(
-                    color: BMIColor.inaactiveColor,
+                    color: BMIColor.activeColor,
                     child: BMIHeightAge(
                         desc: 'WEIGHT',
                         onTapAdd: () {
@@ -94,7 +145,7 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: BMIContainer(
-                    color: BMIColor.inaactiveColor,
+                    color: BMIColor.activeColor,
                     child: BMIHeightAge(
                         desc: 'AGE',
                         onTapAdd: () => setState(() {
@@ -108,70 +159,20 @@ class _InputPageState extends State<InputPage> {
                 )
               ],
             ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 70.0,
+            margin: const EdgeInsets.only(top: 5.0),
+            decoration:
+                const BoxDecoration(color: BMIColor.bottomContainerColor),
+            child: const Center(
+              child: Text(
+                'Calculate',
+                style: largeButtonStyle,
+              ),
+            ),
           )
         ]));
-  }
-}
-
-class BMIHeightAge extends StatelessWidget {
-  const BMIHeightAge({
-    Key? key,
-    required this.desc,
-    required this.onTapAdd,
-    required this.onTapMinus,
-    required this.number,
-  }) : super(key: key);
-
-  final String desc;
-  final VoidCallback onTapAdd;
-  final VoidCallback onTapMinus;
-  final String number;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          desc,
-          style: const TextStyle(
-              fontSize: 18.0,
-              color: BMIColor.gray,
-              fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 10.0,
-        ),
-        Text(
-          number,
-          style: numberTextStyle,
-        ),
-        const SizedBox(
-          height: 10.0,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: onTapMinus,
-              child: const Icon(FontAwesomeIcons.minus),
-              style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(15)),
-            ),
-            const SizedBox(
-              width: 10.0,
-            ),
-            ElevatedButton(
-              onPressed: onTapAdd,
-              child: const Icon(FontAwesomeIcons.plus),
-              style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(15.0)),
-            )
-          ],
-        )
-      ],
-    );
   }
 }

@@ -25,10 +25,7 @@ class BMIHeightAge extends StatelessWidget {
       children: [
         Text(
           desc,
-          style: const TextStyle(
-              fontSize: 18.0,
-              color: BMIColor.gray,
-              fontWeight: FontWeight.bold),
+          style: labelTextStyle,
         ),
         const SizedBox(
           height: 10.0,
@@ -48,7 +45,8 @@ class BMIHeightAge extends StatelessWidget {
               child: const Icon(FontAwesomeIcons.minus),
               style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(15)),
+                  padding: const EdgeInsets.all(15),
+                  primary: BMIColor.grayButton),
             ),
             const SizedBox(
               width: 10.0,
@@ -58,7 +56,8 @@ class BMIHeightAge extends StatelessWidget {
               child: const Icon(FontAwesomeIcons.plus),
               style: ElevatedButton.styleFrom(
                   shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(15.0)),
+                  padding: const EdgeInsets.all(15.0),
+                  primary: BMIColor.grayButton),
             )
           ],
         )
