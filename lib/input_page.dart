@@ -1,3 +1,5 @@
+import 'package:bmi_calc/bmi_calculator.dart';
+import 'package:bmi_calc/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -5,7 +7,6 @@ import 'constants/constants.dart';
 import 'widgets/widgets.dart';
 
 enum Gender { male, female }
-Gender? selectGender;
 
 class InputPage extends StatefulWidget {
   const InputPage({Key? key}) : super(key: key);
@@ -15,11 +16,10 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender? selectGender;
   int weight = 50;
   int age = 20;
   int height = 180;
-  Color maleColor = BMIColor.inaactiveColor;
-  Color femaleColor = BMIColor.inaactiveColor;
 
   @override
   Widget build(BuildContext context) {
@@ -128,13 +128,11 @@ class _InputPageState extends State<InputPage> {
                         onTapAdd: () {
                           setState(() {
                             weight++;
-                            debugPrint(weight.toString());
                           });
                         },
                         onTapMinus: () {
                           setState(() {
                             weight--;
-                            debugPrint(weight.toString());
                           });
                         },
                         number: weight.toString()),
@@ -157,16 +155,29 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 70.0,
-            margin: const EdgeInsets.only(top: 5.0),
-            decoration:
-                const BoxDecoration(color: BMIColor.bottomContainerColor),
-            child: const Center(
-              child: Text(
-                'Calculate',
-                style: largeButtonStyle,
+          GestureDetector(
+            onTap: () {
+              BMICalculator bmiCalculator = BMICalculator(
+                  weight: weight.toDouble(), height: height.toDouble());
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BMIResultsPage(
+                          result: bmiCalculator.calculate(),
+                          bmi: bmiCalculator.getBMILabel(),
+                          bmiDescription: bmiCalculator.getBMIDesc())));
+            },
+            child: Container(
+              width: double.infinity,
+              height: 70.0,
+              margin: const EdgeInsets.only(top: 5.0),
+              decoration:
+                  const BoxDecoration(color: BMIColor.bottomContainerColor),
+              child: const Center(
+                child: Text(
+                  'Calculate',
+                  style: largeButtonStyle,
+                ),
               ),
             ),
           )
